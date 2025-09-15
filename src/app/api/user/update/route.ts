@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { dbConnection } from "@/utills/dbConnect";
 import { NextRequest, NextResponse } from "next/server";
 import Post from "../../../../../models/postModel";

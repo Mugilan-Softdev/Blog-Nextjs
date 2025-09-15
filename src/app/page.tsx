@@ -1,9 +1,7 @@
 import Article from "@/components/Articles/Article";
 import CategoryBar from "@/components/CategoryBar/CategoryBar";
 import axios from "axios";
-import { getServerSession } from "next-auth";
-import { authOptions, getAuthSession } from "./api/auth/[...nextauth]/route";
-import { useSearchTextStore } from "../../store/useSearchTextStore";
+
 import Feed from "@/components/feed/Feed";
 
 const fetchPosts = async () => {

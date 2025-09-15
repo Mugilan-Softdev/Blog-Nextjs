@@ -2,8 +2,6 @@
 import axios from "axios";
 import React from "react";
 import UserSingle from "./UserSingle";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import Animation from "@/Animation/Animation";
@@ -34,8 +32,6 @@ const UserCard = () => {
       },
     });
   }
-
- 
 
   data = Array.isArray(data)
     ? data?.filter((user: any) => user?._id !== session?.data?.user?.id)

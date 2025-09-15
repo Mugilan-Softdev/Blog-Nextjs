@@ -2,7 +2,7 @@ import { dbConnection } from "@/utills/dbConnect";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import Post from "../../../../../models/postModel";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 export const DELETE = async (request: NextRequest) => {
   const id: string = request.nextUrl.searchParams.get("id") || "";

@@ -2,7 +2,7 @@ import { dbConnection } from "@/utills/dbConnect";
 import { NextRequest, NextResponse } from "next/server";
 import Post from "../../../../../models/postModel";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 export const PUT = async (request: NextRequest) => {
   const id: string = request.nextUrl.searchParams.get("id") || "";
