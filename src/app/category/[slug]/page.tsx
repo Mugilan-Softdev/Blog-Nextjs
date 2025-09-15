@@ -1,20 +1,26 @@
 import Article from "@/components/Articles/Article";
 import CategoryBar from "@/components/CategoryBar/CategoryBar";
-import axios from "axios";
-import { usePathname } from "next/navigation";
 import React from "react";
 import notfound from "../../../Animation/json/notfound.json";
-import Lottie from "lottie-react";
 import Animation from "@/Animation/Animation";
 
 const fetchPostsCategory = async (category: string) => {
   try {
-    const { data } = await axios.get(
-      `https://blog-nextjs-msubham193.vercel.app/api/post/fetch?category=${category}`
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL
+      ? process.env.NEXT_PUBLIC_SITE_URL
+      : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "";
+    const res = await fetch(
+      `${baseUrl}/api/post/fetch?category=${encodeURIComponent(category)}`,
+      { cache: "no-store" }
     );
-    return data.posts;
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.posts ?? [];
   } catch (error) {
     console.log(error);
+    return [];
   }
 };
 const Category = async ({ params }: { params: { slug: string } }) => {

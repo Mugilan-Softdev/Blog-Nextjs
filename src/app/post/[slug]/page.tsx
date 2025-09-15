@@ -5,9 +5,16 @@ import React from "react";
 
 const fetchSingelPost = async (id: string) => {
   try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_URL}/api/post/fetch?id=${id}`
-    );
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL
+      ? process.env.NEXT_PUBLIC_SITE_URL
+      : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "";
+    const res = await fetch(`${baseUrl}/api/post/fetch?id=${id}`, {
+      cache: "no-store",
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
     return data?.posts;
   } catch (error) {
     console.log(error);

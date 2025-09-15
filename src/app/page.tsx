@@ -1,18 +1,22 @@
 import Article from "@/components/Articles/Article";
 import CategoryBar from "@/components/CategoryBar/CategoryBar";
-import axios from "axios";
 
 import Feed from "@/components/feed/Feed";
 
 const fetchPosts = async () => {
   try {
-    const { data } = await axios.get(`${process.env.NEXT_URL}/api/post/fetch`);
-
-    console.log(data.posts.length);
-
-    return data.posts;
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL
+      ? process.env.NEXT_PUBLIC_SITE_URL
+      : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "";
+    const res = await fetch(`${baseUrl}/api/post/fetch`, { cache: "no-store" });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.posts ?? [];
   } catch (error) {
     console.log(error);
+    return [];
   }
 };
 

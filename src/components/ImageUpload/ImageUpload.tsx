@@ -1,6 +1,10 @@
 "use client";
 
-import { CldUploadWidget } from "next-cloudinary";
+import dynamic from "next/dynamic";
+const CldUploadWidget = dynamic(
+  () => import("next-cloudinary").then((m) => m.CldUploadWidget),
+  { ssr: false }
+);
 import Image from "next/image";
 import { useCallback } from "react";
 
