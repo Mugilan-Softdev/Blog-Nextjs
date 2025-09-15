@@ -3,14 +3,18 @@ import CategoryBar from "@/components/CategoryBar/CategoryBar";
 import React from "react";
 import notfound from "../../../Animation/json/notfound.json";
 import Animation from "@/Animation/Animation";
+import { headers } from "next/headers";
+
+export const dynamic = "force-dynamic";
 
 const fetchPostsCategory = async (category: string) => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL
-      ? process.env.NEXT_PUBLIC_SITE_URL
-      : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "";
+    const h = headers();
+    const host = h.get("x-forwarded-host") || h.get("host");
+    const proto =
+      h.get("x-forwarded-proto") ||
+      (process.env.NODE_ENV === "development" ? "http" : "https");
+    const baseUrl = `${proto}://${host}`;
     const res = await fetch(
       `${baseUrl}/api/post/fetch?category=${encodeURIComponent(category)}`,
       { cache: "no-store" }
@@ -30,7 +34,7 @@ const Category = async ({ params }: { params: { slug: string } }) => {
   const data = await fetchPostsCategory(convertedStr);
 
   return (
-    <main className=" p-5  xl:w-[65%]">
+    <main className=" p-5  xl:w-[65%] bg-white border border-black rounded-md">
       <CategoryBar />
 
       {data.length > 0 ? (

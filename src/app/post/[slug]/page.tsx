@@ -1,15 +1,17 @@
 import CommentSection from "@/components/Comment/CommentSection";
 import axios from "axios";
+import { headers } from "next/headers";
 import Image from "next/image";
 import React from "react";
 
 const fetchSingelPost = async (id: string) => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL
-      ? process.env.NEXT_PUBLIC_SITE_URL
-      : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "";
+    const h = headers();
+    const host = h.get("x-forwarded-host") || h.get("host");
+    const proto =
+      h.get("x-forwarded-proto") ||
+      (process.env.NODE_ENV === "development" ? "http" : "https");
+    const baseUrl = `${proto}://${host}`;
     const res = await fetch(`${baseUrl}/api/post/fetch?id=${id}`, {
       cache: "no-store",
     });

@@ -57,8 +57,8 @@ const CategoryBar = () => {
   const [selected, setSelected] = useState(people[0]);
   return (
     <>
-      <div className=" hidden xl:flex flex-col gap-5 items-center xl:min-w-full  bg-white justify-center  mt-5 font-normal   ">
-        <div className="flex gap-5 items-center justify-center">
+      <div className=" hidden xl:flex flex-col gap-5 items-center xl:min-w-full  bg-white justify-center  mt-5 font-normal border border-black rounded-md  ">
+        <div className="flex gap-5 items-center justify-center py-3">
           {data.map((item) => (
             <Link
               href={item.path}
@@ -79,11 +79,10 @@ const CategoryBar = () => {
         <div className="h-[1px] bg-black min-w-[100%] "> </div>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between mt-3">
         <select
-          name=""
-          id=""
-          className="p-2 rounded-lg shadow-lg bg-teal-50 text-xs"
+          aria-label="Select category"
+          className="p-2 rounded-lg bg-white border border-black text-xs"
         >
           {data.map((item) => (
             <option key={item.id} onClick={() => router.push(item.path)}>

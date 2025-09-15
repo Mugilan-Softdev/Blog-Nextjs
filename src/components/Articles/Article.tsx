@@ -61,14 +61,14 @@ const Article = ({ props }: { props: any }) => {
   };
 
   return (
-    <div className=" shadow-lg p-5 mt-4 bg-white cursor-pointer hover:shadow-2xl transition-all duration-300 ease-in-out ">
+    <div className=" p-5 mt-4 bg-white border border-black rounded-md cursor-pointer transition-all duration-300 ease-in-out ">
       <div className="flex items-center  gap-3">
         <Image
           src={props?.author?.avatar}
           alt="user"
           height={30}
           width={30}
-          className="rounded-full"
+          className="rounded-full border border-black"
         />
 
         <div className="">
@@ -89,33 +89,38 @@ const Article = ({ props }: { props: any }) => {
         <div>
           {" "}
           <h1 className="text-lg font-semibold mt-4">{props.title}</h1>
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="text-xs text-gray-700 mt-2">
             {props.content.slice(0, 350)}
           </p>
         </div>
-        <img src={props.image} className="w-52 h-36 rounded-lg" />
+        <img
+          src={props.image}
+          className="w-52 h-36 rounded-lg border border-black"
+          alt={props?.title || "post image"}
+        />
       </div>
       <div className="mt-5 md:hidden">
         <img
           src={props.image}
-          className="w-full rounded-lg"
+          className="w-full rounded-lg border border-black"
+          alt={props?.title || "post image"}
           onClick={() => router.push(`/post/${props._id}`)}
         />
 
         <div onClick={() => router.push(`/post/${props._id}`)}>
           {" "}
           <h1 className="text-lg font-semibold mt-4">{props.title}</h1>
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="text-xs text-gray-700 mt-2">
             {props.content.slice(0, 200)}
           </p>
         </div>
       </div>
       <div className="flex  items-center justify-between  mt-3 ">
         <div className=" flex items-center gap-4">
-          <div className="bg-teal-100 max-w-fit p-2 rounded-full text-xs font-semibold">
+          <div className="bg-white border border-black max-w-fit px-3 py-1 rounded-full text-xs font-semibold">
             {props.category}{" "}
           </div>
-          <div className="bg-red-100 max-w-fit p-2 rounded-full text-xs font-semibold hidden md:flex">
+          <div className="bg-white border border-black max-w-fit px-3 py-1 rounded-full text-xs font-semibold hidden md:flex">
             4 min read{" "}
           </div>
         </div>
@@ -136,11 +141,11 @@ const Article = ({ props }: { props: any }) => {
           <div className="flex items-center justify-center gap-1">
             {" "}
             <Comments />
-            <p className="text-slate-500 text-sm">{props.comments.length}</p>
+            <p className="text-gray-700 text-sm">{props.comments.length}</p>
           </div>
           <div className="flex items-center justify-center gap-1">
             {isLiked ? <Liked onClick={onLiked} /> : <Like onClick={onLiked} />}
-            <p className="text-slate-500 text-sm">{like}</p>
+            <p className="text-gray-700 text-sm">{like}</p>
           </div>
         </div>
       </div>
